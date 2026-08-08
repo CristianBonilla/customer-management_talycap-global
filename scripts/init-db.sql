@@ -16,10 +16,10 @@ IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Clientes' AND schema_id = 
 BEGIN
     CREATE TABLE dbo.Clientes (
         IdCliente INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
-        Identificacion VARCHAR(20) UNIQUE NOT NULL,
-        Nombre VARCHAR(100) NOT NULL,
-        Apellido VARCHAR(100) NOT NULL,
-        Email VARCHAR(150) NOT NULL,
+        Identificacion NVARCHAR(20) UNIQUE NOT NULL,
+        Nombre NVARCHAR(100) NOT NULL,
+        Apellido NVARCHAR(100) NOT NULL,
+        Email NVARCHAR(150) NOT NULL,
         FechaCreacion DATETIME2 DEFAULT GETUTCDATE() NOT NULL,
         FechaActualizacion DATETIME2 NULL
     );
@@ -34,14 +34,14 @@ GO
 -- STORED PROCEDURE: sp_ObtenerClientePorIdentificacion
 -- Descripción: Obtiene los datos de un cliente por su número de identificación
 -- Parámetros:
---   @Identificacion VARCHAR(20) - Número de identificación del cliente
+--   @Identificacion NVARCHAR(20) - Número de identificación del cliente
 -- Retorna: Registro completo del cliente o conjunto vacío si no existe
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE name = 'sp_ObtenerClientePorIdentificacion' AND type = 'P')
 BEGIN
     EXEC sp_executesql N'
     CREATE PROCEDURE dbo.sp_ObtenerClientePorIdentificacion
-        @Identificacion VARCHAR(20)
+        @Identificacion NVARCHAR(20)
     AS
     BEGIN
         SET NOCOUNT ON;
