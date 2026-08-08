@@ -4,16 +4,12 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ── Controllers ──────────────────────────────────────────────────────────────
 builder.Services.AddControllers();
 
-// ── Use Cases (Application Layer) ────────────────────────────────────────────
 builder.Services.AddScoped<ObtenerClienteUseCase>();
 
-// ── Infrastructure (DbContext + Repository) ───────────────────────────────────
 builder.Services.AddInfrastructure(builder.Configuration);
 
-// ── CORS ─────────────────────────────────────────────────────────────────────
 var allowedOrigins = builder.Configuration
     .GetSection("Cors:AllowedOrigins")
     .Get<string[]>() ?? ["http://localhost:4200"];
@@ -26,7 +22,6 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod());
 });
 
-// ── Swagger / OpenAPI ─────────────────────────────────────────────────────────
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -34,24 +29,22 @@ builder.Services.AddSwaggerGen(options =>
     {
         Title = "Customer Management API",
         Version = "v1",
-        Description = "API REST para la gestión y consulta de clientes. Prueba Técnica Fullstack – TalyCap Global."
+        Description = "API REST para la gestión y consulta de clientes."
     });
 
-    // Incluye XML comments para documentación enriquecida
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     if (File.Exists(xmlPath))
         options.IncludeXmlComments(xmlPath);
 });
 
-// ─────────────────────────────────────────────────────────────────────────────
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Customer Management API v1");
-    c.RoutePrefix = string.Empty; // Swagger accesible en la raíz "/"
+    c.RoutePrefix = string.Empty;
 });
 
 app.UseCors("FrontendPolicy");

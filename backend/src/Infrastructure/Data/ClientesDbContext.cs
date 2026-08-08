@@ -3,10 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CustomerManagement.Infrastructure.Data;
 
-public class ClientesDbContext : DbContext
+public class ClientesDbContext(DbContextOptions<ClientesDbContext> options) : DbContext(options)
 {
-    public ClientesDbContext(DbContextOptions<ClientesDbContext> options) : base(options) { }
-
     public DbSet<Cliente> Clientes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

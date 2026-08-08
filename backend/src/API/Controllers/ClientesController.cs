@@ -10,16 +10,10 @@ namespace CustomerManagement.API.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Produces("application/json")]
-public class ClientesController : ControllerBase
+public class ClientesController(ObtenerClienteUseCase obtenerClienteUseCase, ILogger<ClientesController> logger) : ControllerBase
 {
-    private readonly ObtenerClienteUseCase _obtenerClienteUseCase;
-    private readonly ILogger<ClientesController> _logger;
-
-    public ClientesController(ObtenerClienteUseCase obtenerClienteUseCase, ILogger<ClientesController> logger)
-    {
-        _obtenerClienteUseCase = obtenerClienteUseCase;
-        _logger = logger;
-    }
+    private readonly ObtenerClienteUseCase _obtenerClienteUseCase = obtenerClienteUseCase;
+    private readonly ILogger<ClientesController> _logger = logger;
 
     /// <summary>
     /// Obtiene los datos de un cliente a partir de su número de identificación.
@@ -36,9 +30,7 @@ public class ClientesController : ControllerBase
     [ProducesResponseType(typeof(object), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(object), StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetByIdentificacion(
-        [FromRoute] string identificacion,
-        CancellationToken cancellationToken)
+    public async Task<IActionResult> GetByIdentificacion([FromRoute] string identificacion, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Buscando cliente con identificación: {Identificacion}", identificacion);
 
@@ -61,6 +53,7 @@ public class ClientesController : ControllerBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error al consultar cliente con identificación: {Identificacion}", identificacion);
+
             return StatusCode(StatusCodes.Status500InternalServerError,
                 new { mensaje = "Error interno al procesar la solicitud." });
         }

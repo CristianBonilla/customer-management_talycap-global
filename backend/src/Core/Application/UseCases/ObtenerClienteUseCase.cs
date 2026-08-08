@@ -4,14 +4,9 @@ using CustomerManagement.Core.Application.Mappers;
 
 namespace CustomerManagement.Core.Application.UseCases;
 
-public sealed class ObtenerClienteUseCase
+public sealed class ObtenerClienteUseCase(IClienteRepository repository)
 {
-    private readonly IClienteRepository _repository;
-
-    public ObtenerClienteUseCase(IClienteRepository repository)
-    {
-        _repository = repository;
-    }
+    private readonly IClienteRepository _repository = repository;
 
     public async Task<ClienteResponseDto?> ExecuteAsync(string identificacion, CancellationToken cancellationToken = default)
     {
