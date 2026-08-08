@@ -1,0 +1,26 @@
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="logo">
+      <i class="pi pi-building logo-icon"></i>
+      <div class="logo-text">
+        <span class="logo-title">Customer</span>
+        <span class="logo-subtitle">Management</span>
+      </div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <p class="nav-section-label">MÓDULOS</p>
+    @for (item of navItems; track item.route) {
+      <a class="nav-item" [routerLink]="item.route" routerLinkActive="active">
+        <i [class]="item.icon"></i>
+        <span>{{ item.label }}</span>
+      </a>
+    }
+  </nav>
+
+  <div class="sidebar-footer">
+    <i class="pi pi-info-circle"></i>
+    <span>TalyCap Global &copy; 2026</span>
+  </div>
+</aside>

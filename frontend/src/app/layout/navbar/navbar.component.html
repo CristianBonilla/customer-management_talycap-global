@@ -1,0 +1,27 @@
+<header class="navbar">
+  <div class="navbar-left">
+    <span class="page-title">
+      <i class="pi pi-users"></i>
+      Gestión de Clientes
+    </span>
+  </div>
+
+  <div class="navbar-right">
+    <p-button
+      [icon]="themeService.isDarkMode() ? 'pi pi-sun' : 'pi pi-moon'"
+      [text]="true"
+      [rounded]="true"
+      severity="secondary"
+      [pTooltip]="themeService.isDarkMode() ? 'Cambiar a Modo Claro' : 'Cambiar a Modo Oscuro'"
+      tooltipPosition="bottom"
+      (onClick)="themeService.toggleTheme()"
+    />
+    <p-avatar
+      label="CB"
+      shape="circle"
+      [style]="{ backgroundColor: 'var(--primary-500)', color: '#fff', cursor: 'pointer', fontWeight: '600' }"
+      pTooltip="Cristian Bonilla"
+      tooltipPosition="bottom"
+    />
+  </div>
+</header>
