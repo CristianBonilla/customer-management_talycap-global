@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  # ── SQL Server 2022 ───────────────────────────────────────────────────────
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver-dbclientes
+    environment:
+      ACCEPT_EULA: 'Y'
+      SA_PASSWORD: 'Customer__Management'
+      MSSQL_PID: 'Developer'
+    ports:
+      - '1433:1433'
+    volumes:
+      - ./scripts/init-db.sql:/scripts/init-db.sql
+      - ./scripts/mssql-entrypoint.sh:/scripts/mssql-entrypoint.sh
+      - sqlserver-data:/var/opt/mssql/data
+      - sqlserver-log:/var/opt/mssql/log
+    entrypoint: /bin/bash /scripts/mssql-entrypoint.sh
+    networks:
+      - backend-network
+    healthcheck:
+      test: ['CMD-SHELL', '/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "Customer__Management" -Q "SELECT 1" -b']
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+  # ── API .NET 10 ───────────────────────────────────────────────────────────
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: customerapi
+    environment:
+      ASPNETCORE_ENVIRONMENT: 'Production'
+      ASPNETCORE_URLS: 'http://+:8080'
+      ConnectionStrings__DefaultConnection: 'Server=sqlserver,1433;Database=DBClientes;User Id=sa;Password=Customer__Management;TrustServerCertificate=True;Encrypt=False'
+    ports:
+      - '8080:8080'
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    networks:
+      - backend-network
+    restart: on-failure
+
+  # ── Frontend Angular 20 (nginx) ───────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: customer-frontend
+    ports:
+      - '80:80'
+    depends_on:
+      - api
+    networks:
+      - backend-network
+    restart: on-failure
+
+volumes:
+  sqlserver-data:
+    driver: local
+  sqlserver-log:
+    driver: local
+
+networks:
+  backend-network:
+    driver: bridge
+
+# ============================================================================
+# MODO DE USO
+# ============================================================================
+#
+# Docker Compose (recomendado):
+#   Levantar todo: docker-compose up --build -d
+#   Ver logs API:  docker-compose logs -f api
+#   Detener todo:  docker-compose down
+#
+# LocalDB (desarrollo Windows):
+#   Cadena de conexión en appsettings.Development.json:
+#   Server=(localdb)\mssqllocaldb;Database=DBClientes;Integrated Security=true;
+#   Ejecutar scripts/init-db.sql manualmente en SSMS o sqlcmd.
+#
+# ============================================================================
