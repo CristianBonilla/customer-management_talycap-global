@@ -66,7 +66,7 @@ docker-compose down
 
 ```bash
 cd scripts
-sqlcmd -S (localdb)\mssqllocaldb -i init-db.sql -b
+sqlcmd -S "(localdb)\mssqllocaldb" -f 65001 -i "init-db.sql" -b
 ```
 
 **Docker (SQL Server solo):**
