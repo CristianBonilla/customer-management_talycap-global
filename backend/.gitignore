@@ -1,0 +1,78 @@
+# .NET and Visual Studio
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.so
+*.dylib
+
+# Visual Studio
+.vs/
+.vscode/
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+.vscode/launch.json
+.vscode/settings.json
+.vscode/tasks.json
+
+# Rider
+.idea/
+.idea_modules/
+*.sln.iml
+*.iws
+*.iml
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+.nuget/packages/
+.nuget/NuGet.Config
+
+# Build folders
+.vs/
+bin/
+obj/
+.build/
+out/
+
+# Test Results
+TestResults/
+*.trx
+coverage/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Entity Framework Migrations (optional)
+Migrations/
+
+# LocalDB
+*.mdf
+*.ldf
+
+# BeatPulse healthcheck temp database
+healthchecksdb
+
+# LaunchSettings (optional - if you want to ignore environment-specific settings)
+# Properties/launchSettings.json
