@@ -1,4 +1,4 @@
-using CustomerManagement.Core.Application.Interfaces;
+using CustomerManagement.Domain.Interfaces;
 using CustomerManagement.Infrastructure.Data;
 using CustomerManagement.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;

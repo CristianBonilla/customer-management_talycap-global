@@ -1,6 +1,6 @@
-using CustomerManagement.Core.Domain.Entities;
+using CustomerManagement.Domain.Entities;
 
-namespace CustomerManagement.Core.Application.Interfaces;
+namespace CustomerManagement.Domain.Interfaces;
 
 public interface IClienteRepository
 {

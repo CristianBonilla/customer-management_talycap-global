@@ -1,5 +1,5 @@
-using CustomerManagement.Core.Application.Interfaces;
-using CustomerManagement.Core.Domain.Entities;
+using CustomerManagement.Domain.Interfaces;
+using CustomerManagement.Domain.Entities;
 using CustomerManagement.Infrastructure.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;

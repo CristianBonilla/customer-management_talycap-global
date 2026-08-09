@@ -1,7 +1,7 @@
-using CustomerManagement.Core.Application.DTOs;
-using CustomerManagement.Core.Domain.Entities;
+using CustomerManagement.Contracts.DTOs;
+using CustomerManagement.Domain.Entities;
 
-namespace CustomerManagement.Core.Application.Mappers;
+namespace CustomerManagement.Application.Mappers;
 
 public static class ClienteMapper
 {

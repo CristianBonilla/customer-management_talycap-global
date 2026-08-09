@@ -1,4 +1,4 @@
-using CustomerManagement.Core.Application.UseCases;
+using CustomerManagement.Application.UseCases;
 using CustomerManagement.Infrastructure;
 using System.Reflection;
 

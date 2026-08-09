@@ -1,4 +1,4 @@
-namespace CustomerManagement.Core.Application.DTOs;
+namespace CustomerManagement.Contracts.DTOs;
 
 /// <summary>
 /// DTO de respuesta con los datos del cliente

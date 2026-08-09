@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.7.11925.98 stable
+VisualStudioVersion = 18.7.11925.98
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Core", "src\Core\CustomerManagement.Core.csproj", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}"
 EndProject
@@ -13,6 +13,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución",
 	ProjectSection(SolutionItems) = preProject
 		Dockerfile = Dockerfile
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Application", "src\Application\CustomerManagement.Application.csproj", "{77E73E0C-24F2-DFC6-FE4E-DBE94BCD5135}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Contracts", "src\Contracts\CustomerManagement.Contracts.csproj", "{EF7C220F-0BDB-102C-AAD1-C69542CAE10B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Domain", "src\Domain\CustomerManagement.Domain.csproj", "{B33F5B95-46BB-1872-F807-AE8F013A5818}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.Domain.Entities", "src\Domain.Entities\CustomerManagement.Domain.Entities.csproj", "{73A80F57-5980-2D55-2940-AF471E1DE8F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +40,22 @@ Global
 		{C3D4E5F6-A7B8-9012-CDEF-123456789012}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3D4E5F6-A7B8-9012-CDEF-123456789012}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3D4E5F6-A7B8-9012-CDEF-123456789012}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77E73E0C-24F2-DFC6-FE4E-DBE94BCD5135}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77E73E0C-24F2-DFC6-FE4E-DBE94BCD5135}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77E73E0C-24F2-DFC6-FE4E-DBE94BCD5135}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77E73E0C-24F2-DFC6-FE4E-DBE94BCD5135}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF7C220F-0BDB-102C-AAD1-C69542CAE10B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF7C220F-0BDB-102C-AAD1-C69542CAE10B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF7C220F-0BDB-102C-AAD1-C69542CAE10B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF7C220F-0BDB-102C-AAD1-C69542CAE10B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B33F5B95-46BB-1872-F807-AE8F013A5818}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B33F5B95-46BB-1872-F807-AE8F013A5818}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B33F5B95-46BB-1872-F807-AE8F013A5818}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B33F5B95-46BB-1872-F807-AE8F013A5818}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73A80F57-5980-2D55-2940-AF471E1DE8F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73A80F57-5980-2D55-2940-AF471E1DE8F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73A80F57-5980-2D55-2940-AF471E1DE8F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73A80F57-5980-2D55-2940-AF471E1DE8F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

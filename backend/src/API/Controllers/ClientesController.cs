@@ -1,5 +1,5 @@
-using CustomerManagement.Core.Application.DTOs;
-using CustomerManagement.Core.Application.UseCases;
+using CustomerManagement.Contracts.DTOs;
+using CustomerManagement.Application.UseCases;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerManagement.API.Controllers;

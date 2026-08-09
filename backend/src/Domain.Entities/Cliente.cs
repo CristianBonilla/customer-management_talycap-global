@@ -1,4 +1,4 @@
-namespace CustomerManagement.Core.Domain.Entities;
+namespace CustomerManagement.Domain.Entities;
 
 public sealed class Cliente
 {

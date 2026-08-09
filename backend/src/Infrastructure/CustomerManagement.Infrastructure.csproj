@@ -18,7 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core\CustomerManagement.Core.csproj" />
+    <ProjectReference Include="..\Domain\CustomerManagement.Domain.csproj" />
+    <ProjectReference Include="..\Domain.Entities\CustomerManagement.Domain.Entities.csproj" />
   </ItemGroup>
 
 </Project>

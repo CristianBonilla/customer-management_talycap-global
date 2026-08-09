@@ -1,8 +1,8 @@
-using CustomerManagement.Core.Application.DTOs;
-using CustomerManagement.Core.Application.Interfaces;
-using CustomerManagement.Core.Application.Mappers;
+using CustomerManagement.Application.Mappers;
+using CustomerManagement.Contracts.DTOs;
+using CustomerManagement.Domain.Interfaces;
 
-namespace CustomerManagement.Core.Application.UseCases;
+namespace CustomerManagement.Application.UseCases;
 
 public sealed class ObtenerClienteUseCase(IClienteRepository repository)
 {

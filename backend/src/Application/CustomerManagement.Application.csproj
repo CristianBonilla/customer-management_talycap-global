@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<TargetFramework>net10.0</TargetFramework>
+	<Nullable>enable</Nullable>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<RootNamespace>CustomerManagement.Application</RootNamespace>
+	<AssemblyName>CustomerManagement.Application</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<ProjectReference Include="..\Domain\CustomerManagement.Domain.csproj" />
+	<ProjectReference Include="..\Domain.Entities\CustomerManagement.Domain.Entities.csproj" />
+	<ProjectReference Include="..\Contracts\CustomerManagement.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

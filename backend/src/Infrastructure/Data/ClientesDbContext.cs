@@ -1,4 +1,4 @@
-using CustomerManagement.Core.Domain.Entities;
+using CustomerManagement.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomerManagement.Infrastructure.Data;
