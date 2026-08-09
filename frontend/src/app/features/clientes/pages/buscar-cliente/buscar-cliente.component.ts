@@ -1,4 +1,4 @@
-import { Component, inject, signal, effect } from '@angular/core';
+import { Component, inject, signal, computed, effect } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngxs/store';
@@ -14,7 +14,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { MessageModule } from 'primeng/message';
 
 import { ClienteState } from '../../state/cliente.state';
-import { BuscarCliente, ResetClienteState } from '../../state/cliente.actions';
+import { BuscarCliente } from '../../state/cliente.actions';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { ClienteResponse } from '../../../../core/models/cliente.model';
 
@@ -35,11 +35,10 @@ export class BuscarClienteComponent {
   private readonly store = inject(Store);
   private readonly toastr = inject(ToastrService);
 
-  // RxJS observables del store NGXS → Angular Signals via rxjs-interop
   readonly cliente = toSignal<ClienteResponse | null>(
     this.store.select(ClienteState.cliente), { initialValue: null }
   );
-  readonly loading = toSignal<boolean>(
+  readonly loading = toSignal(
     this.store.select(ClienteState.loading), { initialValue: false }
   );
   readonly error = toSignal<string | null>(
@@ -48,7 +47,7 @@ export class BuscarClienteComponent {
   readonly errorStatus = toSignal<number | null>(
     this.store.select(ClienteState.errorStatus), { initialValue: null }
   );
-  readonly found = toSignal<boolean>(
+  readonly found = toSignal(
     this.store.select(ClienteState.found), { initialValue: false }
   );
 
@@ -62,8 +61,21 @@ export class BuscarClienteComponent {
     ])
   });
 
+  private readonly identificacionValue = toSignal(
+    this.searchForm.controls.identificacion.valueChanges, { initialValue: this.searchForm.value.identificacion ?? '' }
+  );
+  private readonly identificacionStatus = toSignal(
+    this.searchForm.controls.identificacion.statusChanges, { initialValue: this.searchForm.controls.identificacion.status }
+  );
+  private readonly lastSearchedId = signal<string | null>(null);
+
+  readonly searchDisabled = computed(() => {
+    if (this.identificacionStatus() !== 'VALID') return true;
+    const value = (this.identificacionValue() ?? '').trim();
+    return value === this.lastSearchedId();
+  });
+
   constructor() {
-    // Effect: éxito → abrir modal + toastr verde
     effect(() => {
       if (this.found() && this.cliente()) {
         this.toastr.success('Cliente encontrado exitosamente.', 'Éxito');
@@ -71,7 +83,6 @@ export class BuscarClienteComponent {
       }
     });
 
-    // Effect: error → toastr rojo según tipo
     effect(() => {
       const err = this.error();
       if (err) {
@@ -87,13 +98,12 @@ export class BuscarClienteComponent {
       return;
     }
     const id = this.searchForm.value.identificacion!.trim();
+    this.lastSearchedId.set(id);
     this.store.dispatch(new BuscarCliente(id));
   }
 
   cerrarModal(): void {
     this.showModal.set(false);
-    this.store.dispatch(new ResetClienteState());
-    this.searchForm.reset();
   }
 
   get iniciales(): string {

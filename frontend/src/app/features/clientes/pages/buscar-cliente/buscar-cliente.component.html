@@ -1,13 +1,10 @@
 <div class="page">
-
-  <!-- ── Encabezado ─────────────────────────────────────────────────────── -->
   <div class="page-header">
     <h1 class="page-title"><i class="pi pi-search"></i> Búsqueda de Clientes</h1>
     <p class="page-subtitle">Ingresa el número de identificación para consultar los datos del cliente.</p>
   </div>
 
-  <!-- ── Formulario de búsqueda ─────────────────────────────────────────── -->
-  <p-card styleClass="search-card">
+  <p-card class="search-card">
     <form [formGroup]="searchForm" (ngSubmit)="buscar()">
       <div class="search-row">
 
@@ -21,7 +18,6 @@
               formControlName="identificacion"
               placeholder="Ej: 1234567890"
               autocomplete="off"
-              [disabled]="loading()"
             />
           </div>
           @if (searchForm.get('identificacion')?.invalid && searchForm.get('identificacion')?.touched) {
@@ -37,6 +33,7 @@
           label="Buscar"
           icon="pi pi-search"
           [loading]="loading()"
+          [disabled]="searchDisabled()"
           styleClass="search-btn"
         />
 
@@ -44,12 +41,10 @@
     </form>
   </p-card>
 
-  <!-- ── Estado: Cargando ────────────────────────────────────────────────── -->
   @if (loading()) {
     <app-spinner />
   }
 
-  <!-- ── Estado: Error de conexión ──────────────────────────────────────── -->
   @if (error() && errorStatus() !== 404 && !loading()) {
     <div class="state-box state-error">
       <i class="pi pi-wifi state-icon"></i>
@@ -58,7 +53,6 @@
     </div>
   }
 
-  <!-- ── Estado: 404 No encontrado ──────────────────────────────────────── -->
   @if (error() && errorStatus() === 404 && !loading()) {
     <div class="state-box state-empty">
       <i class="pi pi-user-minus state-icon"></i>
@@ -67,11 +61,10 @@
     </div>
   }
 
-  <!-- ── Estado: Éxito — Vista previa ──────────────────────────────────── -->
   @if (found() && cliente(); as c) {
-    <p-card styleClass="result-card" header="Resultado encontrado">
+    <p-card class="result-card" header="Resultado encontrado">
       <div class="result-row">
-        <p-avatar [label]="iniciales" shape="circle" size="xlarge" styleClass="result-avatar" />
+        <p-avatar [label]="iniciales" shape="circle" size="xlarge" class="result-avatar" />
         <div class="result-info">
           <h3 class="result-name">{{ c.nombre }} {{ c.apellido }}</h3>
           <p class="result-meta"><i class="pi pi-id-card"></i> {{ c.identificacion }}</p>
@@ -89,13 +82,10 @@
 
 </div>
 
-<!-- ══════════════════════════════════════════════════
-     Modal: Detalle del Cliente
-     ══════════════════════════════════════════════════ -->
 <p-dialog
   header="Detalle del Cliente"
   [visible]="showModal()"
-  (onHide)="cerrarModal()"
+  (visibleChange)="showModal.set(false)"
   [modal]="true"
   [closable]="true"
   [draggable]="false"
@@ -107,7 +97,7 @@
     <div class="modal-body">
 
       <div class="modal-hero">
-        <p-avatar [label]="iniciales" shape="circle" size="xlarge" styleClass="modal-avatar" />
+        <p-avatar [label]="iniciales" shape="circle" size="xlarge" class="modal-avatar" />
         <div>
           <h2 class="modal-name">{{ c.nombre }} {{ c.apellido }}</h2>
           <p-tag value="Activo" severity="success" icon="pi pi-check-circle" />
