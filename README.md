@@ -10,7 +10,7 @@ Aplicación de gestión de clientes con **.NET 10** + **Angular 20** + **SQL Ser
 | Base de datos | SQL Server | 2022 |
 | Frontend | Angular | 20.0 |
 | State Management | NGXS | 20.0 |
-| UI Components | PrimeNG | 19.0 |
+| UI Components | PrimeNG | 20.2 |
 | Node.js | Node.js | 22 |
 | Containerización | Docker | Latest |
 
@@ -35,8 +35,8 @@ cd customer-management_talycap-global
 docker-compose up --build
 
 # Acceder a la aplicación
-# Frontend:    http://localhost
-# API Swagger: http://localhost:8080/index.html
+# Frontend:    http://localhost:4200
+# API Swagger: https://localhost:10097/index.html
 # SQL Server:  localhost:1433 (sa / Customer__Management)
 ```
 
@@ -86,8 +86,8 @@ dotnet restore
 dotnet build
 dotnet run --project src/API/CustomerManagement.API.csproj
 
-# API lista en http://localhost:5000
-# Swagger UI: http://localhost:5000/index.html
+# API lista en https://localhost:10097
+# Swagger UI: https://localhost:10097/index.html
 ```
 
 ### Paso 3: Frontend
@@ -117,7 +117,7 @@ GET /api/clientes/{identificacion}
 #### **Éxito (200 OK)**
 
 ```bash
-curl -X GET "http://localhost:5000/api/clientes/1234567890" \
+curl -X GET "https://localhost:10097/api/clientes/1234567890" \
   -H "accept: application/json"
 ```
 
@@ -142,7 +142,7 @@ curl -X GET "http://localhost:5000/api/clientes/1234567890" \
 #### **No Encontrado (404)**
 
 ```bash
-curl -X GET "http://localhost:5000/api/clientes/9999999999"
+curl -X GET "https://localhost:10097/api/clientes/9999999999"
 ```
 
 **Respuesta:**
@@ -201,18 +201,41 @@ customer-management_talycap-global/
 │   ├── CustomerManagement.sln
 │   ├── Dockerfile
 │   └── src/
-│       ├── Core/           ← Domain + Application
-│       ├── Infrastructure/ ← EF Core + Repos
-│       └── API/            ← Controllers + Swagger
+│       ├── Domain.Entities/     ← Modelos de dominio (Cliente)
+│       ├── Domain/              ← Interfaces de dominio
+│       ├── Core/                ← Lógica de negocio pura
+│       ├── Application/         ← Use Cases + Mappers
+│       │   ├── UseCases/        ← ObtenerClienteUseCase
+│       │   └── Mappers/         ← ClienteMapper
+│       ├── Contracts/           ← DTOs (ClienteResponseDto)
+│       ├── Infrastructure/      ← EF Core + Repositories
+│       │   ├── Data/            ← ClientesDbContext
+│       │   └── Repositories/    ← ClienteRepository
+│       └── API/                 ← Controllers + Swagger
+│           └── Controllers/     ← ClientesController
 └── frontend/
     ├── package.json
     ├── Dockerfile
     └── src/app/
-        ├── core/
-        ├── layout/
+        ├── core/                ← Servicios (ClienteService, ThemeService)
+        ├── layout/              ← Navbar + Sidebar
         ├── features/
-        └── shared/
+        │   └── clientes/
+        │       ├── state/       ← NGXS Store
+        │       └── pages/       ← Búsqueda de clientes
+        └── shared/              ← Componentes comunes
 ```
+
+### Capas de la Arquitectura Clean
+
+| Capa | Responsabilidad | Proyectos |
+| ------ | ----------------- | ----------- |
+| **Entities** | Modelos de dominio puro | `Domain.Entities` |
+| **Domain** | Contrato de negocio (interfaces) | `Domain` |
+| **Application** | Lógica de aplicación (Use Cases, Mappers) | `Application` |
+| **Contracts** | Objetos de transferencia (DTOs) | `Contracts` |
+| **Infrastructure** | Acceso a datos (EF Core, Repositories, DbContext) | `Infrastructure` |
+| **API** | Endpoints REST, Controllers, Swagger | `API` |
 
 ---
 
@@ -238,7 +261,7 @@ Server=(localdb)\mssqllocaldb;Database=DBClientes;Integrated Security=true;Trust
 
 ### API URLs
 
-**Desarrollo:** `http://localhost:5000/api`  
+**Desarrollo:** `https://localhost:10097/api`  
 **Producción (Docker):** `http://api:8080/api`
 
 ---
@@ -248,8 +271,8 @@ Server=(localdb)\mssqllocaldb;Database=DBClientes;Integrated Security=true;Trust
 - [ ] Docker Desktop corriendo (si usas Docker Compose)
 - [ ] Repositorio clonado
 - [ ] `docker-compose up --build` ejecutado
-- [ ] Frontend accesible en <http://localhost>
-- [ ] API Swagger disponible en <http://localhost:8080/index.html>
+- [ ] Frontend accesible en <http://localhost:4200>
+- [ ] API Swagger disponible en <https://localhost:10097/index.html>
 - [ ] Buscar cliente "1234567890" → ✓ Éxito
 - [ ] Dark mode funciona (click en luna)
 - [ ] Modal de detalle muestra datos correctamente
@@ -272,7 +295,7 @@ ports:
 
 **Frontend no se conecta a API:**
 
-- Verificar que API está corriendo: `curl http://localhost:8080/index.html`
+- Verificar que API está corriendo: `curl https://localhost:10097/index.html`
 - Verificar CORS en `backend/src/API/appsettings.json`
 
 ---
