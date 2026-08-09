@@ -7,7 +7,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
   imports: [ProgressSpinnerModule],
   template: `
     <div class="spinner-wrapper">
-      <p-progressspinner strokeWidth="4" animationDuration=".8s" styleClass="custom-spinner" />
+      <p-progressspinner strokeWidth="4" animationDuration=".8s" class="custom-spinner" />
       <p class="spinner-label">Buscando cliente...</p>
     </div>
   `,
